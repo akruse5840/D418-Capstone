@@ -1,0 +1,41 @@
+- name: Configure Login Banners on Linux Mint (NTP/Syslog Server)
+  hosts: ntp_syslog
+  become: yes
+  tasks:
+    - name: Configure MOTD (Message of the Day)
+      copy:
+        content: "WARNING: Unauthorized access is prohibited!\nAll activity is monitored and logged."
+        dest: /etc/motd
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Configure Console Login Banner (/etc/issue)
+      copy:
+        content: "WARNING: Unauthorized access is prohibited!\nAll activity is monitored and logged."
+        dest: /etc/issue
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Set SSH banner with newline using printf
+      shell: |
+        printf "WARNING: Unauthorized access is prohibited. All activity is monitored and logged.\n" | tee /etc/issue.net > /dev/null
+      args:
+        executable: /bin/bash
+      become: yes
+
+
+    - name: Ensure SSH Uses the Banner
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^#?Banner'
+        line: 'Banner /etc/issue.net'
+      notify: Restart SSH
+
+  handlers:
+    - name: Restart SSH
+      service:
+        name: ssh
+        state: restarted
+

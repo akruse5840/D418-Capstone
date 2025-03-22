@@ -1,0 +1,15 @@
+- name: Configure Pre-login and Post-login Banners on VyOS
+  hosts: vyos_router
+  gather_facts: no
+  tasks:
+    - name: Set pre-login and post-login banners
+      vyos_command:
+        commands:
+          - 'configure'
+          - 'set system login banner pre-login "WARNING: Unauthorized access is prohibited!"'
+          - 'set system login banner post-login "All activity is monitored and logged."'
+          - 'commit'
+          - 'save'
+          - 'exit'
+
+

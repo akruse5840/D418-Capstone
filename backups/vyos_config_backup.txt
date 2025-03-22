@@ -1,0 +1,76 @@
+set firewall
+set interfaces ethernet eth0 address '8.8.8.2/30'
+set interfaces ethernet eth0 description 'WAN to ISP Router'
+set interfaces ethernet eth0 hw-id '0c:e8:15:3d:00:00'
+set interfaces ethernet eth1 hw-id '0c:e8:15:3d:00:01'
+set interfaces ethernet eth1 vif 20 address '10.0.20.254/24'
+set interfaces ethernet eth1 vif 20 address '10.0.20.1/24'
+set interfaces ethernet eth1 vif 20 firewall in
+set interfaces ethernet eth1 vif 30 address '10.0.30.254/24'
+set interfaces ethernet eth1 vif 30 address '10.0.30.1/24'
+set interfaces ethernet eth1 vif 30 firewall in
+set interfaces ethernet eth2 hw-id '0c:e8:15:3d:00:02'
+set interfaces ethernet eth2 vif 10 address '10.0.10.254/24'
+set interfaces ethernet eth2 vif 10 firewall in
+set interfaces ethernet eth3 hw-id '0c:e8:15:3d:00:03'
+set interfaces ethernet eth4 hw-id '0c:e8:15:3d:00:04'
+set interfaces ethernet eth5 hw-id '0c:e8:15:3d:00:05'
+set interfaces ethernet eth6 hw-id '0c:e8:15:3d:00:06'
+set interfaces ethernet eth7 hw-id '0c:e8:15:3d:00:07'
+set interfaces loopback lo
+set nat source rule 10 description 'Masquerade VLANs'
+set nat source rule 10 outbound-interface 'eth0'
+set nat source rule 10 source address '10.0.10.0/24'
+set nat source rule 10 translation address 'masquerade'
+set nat source rule 20 description 'Masquerade VLAN 20'
+set nat source rule 20 outbound-interface 'eth0'
+set nat source rule 20 source address '10.0.20.0/24'
+set nat source rule 20 translation address 'masquerade'
+set nat source rule 30 description 'Masquerade VLAN 30'
+set nat source rule 30 outbound-interface 'eth0'
+set nat source rule 30 source address '10.0.30.0/24'
+set nat source rule 30 translation address 'masquerade'
+set protocols static route 0.0.0.0/0 next-hop 8.8.8.1
+set service dhcp-server shared-network-name VLAN20 authoritative
+set service dhcp-server shared-network-name VLAN20 subnet 10.0.20.0/24 default-router '10.0.20.254'
+set service dhcp-server shared-network-name VLAN20 subnet 10.0.20.0/24 lease '86400'
+set service dhcp-server shared-network-name VLAN20 subnet 10.0.20.0/24 name-server '8.8.8.8'
+set service dhcp-server shared-network-name VLAN20 subnet 10.0.20.0/24 name-server '1.1.1.1'
+set service dhcp-server shared-network-name VLAN20 subnet 10.0.20.0/24 range 0 start '10.0.20.100'
+set service dhcp-server shared-network-name VLAN20 subnet 10.0.20.0/24 range 0 stop '10.0.20.200'
+set service dhcp-server shared-network-name VLAN30 authoritative
+set service dhcp-server shared-network-name VLAN30 subnet 10.0.30.0/24 default-router '10.0.30.254'
+set service dhcp-server shared-network-name VLAN30 subnet 10.0.30.0/24 lease '86400'
+set service dhcp-server shared-network-name VLAN30 subnet 10.0.30.0/24 name-server '8.8.8.8'
+set service dhcp-server shared-network-name VLAN30 subnet 10.0.30.0/24 name-server '1.1.1.1'
+set service dhcp-server shared-network-name VLAN30 subnet 10.0.30.0/24 range 0 start '10.0.30.100'
+set service dhcp-server shared-network-name VLAN30 subnet 10.0.30.0/24 range 0 stop '10.0.30.200'
+set service dhcp-server shared-network-name VLAN_0010 authoritative
+set service dhcp-server shared-network-name VLAN_0010 subnet 10.0.10.0/24 default-router '10.0.10.254'
+set service dhcp-server shared-network-name VLAN_0010 subnet 10.0.10.0/24 lease '86400'
+set service dhcp-server shared-network-name VLAN_0010 subnet 10.0.10.0/24 name-server '8.8.8.8'
+set service dhcp-server shared-network-name VLAN_0010 subnet 10.0.10.0/24 name-server '1.1.1.1'
+set service dhcp-server shared-network-name VLAN_0010 subnet 10.0.10.0/24 range 0 start '10.0.10.100'
+set service dhcp-server shared-network-name VLAN_0010 subnet 10.0.10.0/24 range 0 stop '10.0.10.200'
+set service ssh
+set system config-management commit-revisions '100'
+set system conntrack modules ftp
+set system conntrack modules h323
+set system conntrack modules nfs
+set system conntrack modules pptp
+set system conntrack modules sip
+set system conntrack modules sqlnet
+set system conntrack modules tftp
+set system console device ttyS0 speed '115200'
+set system host-name 'vyos'
+set system login banner post-login 'All activity is monitored and logged.'
+set system login banner pre-login 'WARNING: Unauthorized access is prohibited!'
+set system login user vyos authentication encrypted-password '$6$QxPS.uk6mfo$9QBSo8u1FkH16gMyAVhus6fU3LOzvLR9Z9.82m3tiHFAxTtIkhaZSWssSgzt4v4dGAL8rhVQxTg0oAG9/q11h/'
+set system login user vyos authentication plaintext-password ''
+set system ntp server 10.0.10.100
+set system ntp server time1.vyos.net
+set system ntp server time2.vyos.net
+set system ntp server time3.vyos.net
+set system syslog global facility all level 'info'
+set system syslog global facility protocols level 'debug'
+set system syslog host 10.0.10.100 facility all level 'info'
