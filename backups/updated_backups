@@ -1,0 +1,599 @@
+switch 2:
+* EXOS-VM.3 # show config
+#
+# Module devmgr configuration.
+#
+configure snmp sysContact "https://www.extremenetworks.com/support/"
+configure sys-recovery-level switch reset
+
+#
+# Module vlan configuration.
+#
+configure vlan default delete ports all
+configure vr VR-Default delete ports 1-12
+configure vr VR-Default add ports 1-12
+configure vlan default delete ports 1-4,10
+create vlan "VLAN_0010"
+configure vlan VLAN_0010 tag 10
+configure vlan Default add ports 5-9,11-12 untagged
+configure vlan VLAN_0010 add ports 1,4 tagged
+configure vlan VLAN_0010 add ports 2,10 untagged
+configure vlan VLAN_0010 ipaddress 10.0.10.2 255.255.255.0
+
+#
+# Module mcmgr configuration.
+#
+
+#
+# Module otm configuration.
+#
+
+#
+# Module fdb configuration.
+#
+disable iparp vr VR-Mgmt refresh
+disable neighbor-discovery vr VR-Mgmt refresh
+
+#
+# Module rtmgr configuration.
+#
+configure iproute add default 10.0.10.254
+enable icmp useredirects
+
+#
+# Module policy configuration.
+#
+configure policy slices tci-overwrite 0
+
+#
+# Module aaa configuration.
+#
+
+#
+# Module acl configuration.
+#
+
+
+
+
+#
+# Module bfd configuration.
+#
+
+#
+# Module bgp configuration.
+#
+
+#
+# Module cfgmgr configuration.
+#
+
+#
+# Module dnsAnalytics configuration.
+#
+
+#
+# Module dosprotect configuration.
+#
+
+#
+# Module dot1ag configuration.
+#
+
+#
+# Module eaps configuration.
+#
+
+#
+# Module edp configuration.
+#
+
+#
+# Module elrp configuration.
+#
+
+#
+# Module ems configuration.
+#
+
+#
+# Module epm configuration.
+#
+
+#
+# Module erps configuration.
+#
+
+#
+# Module esrp configuration.
+#
+
+#
+# Module etmon configuration.
+#
+
+#
+# Module exsshd configuration.
+#
+
+#
+# Module hal configuration.
+#
+configure ports 1 debounce time 0
+configure ports 2 debounce time 0
+configure ports 3 debounce time 0
+configure ports 4 debounce time 0
+configure ports 5 debounce time 0
+configure ports 6 debounce time 0
+configure ports 7 debounce time 0
+configure ports 8 debounce time 0
+configure ports 9 debounce time 0
+configure ports 10 debounce time 0
+configure ports 11 debounce time 0
+configure ports 12 debounce time 0
+
+#
+# Module idMgr configuration.
+#
+
+#
+# Module ipSecurity configuration.
+#
+
+#
+# Module iqagent configuration.
+#
+
+#
+# Module isis configuration.
+#
+
+#
+# Module lldp configuration.
+#
+
+#
+# Module mrp configuration.
+#
+
+#
+# Module msdp configuration.
+#
+
+#
+# Module netDb configuration.
+#
+
+#
+# Module netLogin configuration.
+#
+
+#
+# Module netTools configuration.
+#
+configure dns-client add name-server 1.1.1.1 vr VR-Default
+enable dhcp vlan Default
+enable dhcp vlan Mgmt
+configure bootprelay add 10.0.10.1 vr VR-Default
+enable bootprelay ipv4 vlan VLAN_0010
+
+#
+# Module nodealias configuration.
+#
+
+#
+# Module ntp configuration.
+#
+
+#
+# Module ospf configuration.
+#
+
+#
+# Module ospfv3 configuration.
+#
+
+#
+# Module pim configuration.
+#
+
+#
+# Module poe configuration.
+#
+
+#
+# Module rip configuration.
+#
+
+#
+# Module ripng configuration.
+#
+
+#
+# Module snmpMaster configuration.
+#
+configure snmpv3 engine-id 03:0c:3d:c8:b9:00:00
+enable snmp access
+enable snmp access snmp-v1v2c
+enable snmp access snmpv3
+
+#
+# Module stp configuration.
+#
+disable stpd s0
+configure stpd s0 mode dot1w
+enable stpd s0
+configure stpd s0 add vlan VLAN_0010 ports 1,4,10 dot1d
+disable stpd s0 ports 1
+
+switch 1
+EXOS-VM.2 # show config
+#
+# Module devmgr configuration.
+#
+configure snmp sysContact "https://www.extremenetworks.com/support/"
+configure sys-recovery-level switch reset
+
+#
+# Module vlan configuration.
+#
+configure vlan default delete ports all
+configure vr VR-Default delete ports 1-12
+configure vr VR-Default add ports 1-12
+configure vlan default delete ports 1-4
+create vlan "VLAN_0010"
+configure vlan VLAN_0010 tag 10
+create vlan "VLAN_0020"
+configure vlan VLAN_0020 tag 20
+create vlan "VLAN_0030"
+configure vlan VLAN_0030 tag 30
+configure vlan Default add ports 5-12 untagged
+configure vlan VLAN_0010 add ports 2 tagged
+configure vlan VLAN_0020 add ports 1-2 tagged
+configure vlan VLAN_0020 add ports 3 untagged
+configure vlan VLAN_0030 add ports 1-2 tagged
+configure vlan VLAN_0030 add ports 4 untagged
+
+#
+# Module mcmgr configuration.
+#
+
+#
+# Module otm configuration.
+#
+
+#
+# Module fdb configuration.
+#
+disable iparp vr VR-Mgmt refresh
+disable neighbor-discovery vr VR-Mgmt refresh
+
+#
+# Module rtmgr configuration.
+#
+enable icmp useredirects
+
+#
+# Module policy configuration.
+#
+configure policy slices tci-overwrite 0
+
+#
+# Module aaa configuration.
+#
+
+#
+# Module acl configuration.
+#
+
+
+
+
+#
+# Module bfd configuration.
+#
+
+#
+# Module bgp configuration.
+#
+
+#
+# Module cfgmgr configuration.
+#
+
+#
+# Module dnsAnalytics configuration.
+#
+
+#
+# Module dosprotect configuration.
+#
+
+#
+# Module dot1ag configuration.
+#
+
+#
+# Module eaps configuration.
+#
+
+#
+# Module edp configuration.
+#
+
+#
+# Module elrp configuration.
+#
+
+#
+# Module ems configuration.
+#
+
+#
+# Module epm configuration.
+#
+
+#
+# Module erps configuration.
+#
+
+#
+# Module esrp configuration.
+#
+
+#
+# Module etmon configuration.
+#
+
+#
+# Module exsshd configuration.
+#
+
+#
+# Module hal configuration.
+#
+configure ports 1 debounce time 0
+configure ports 2 debounce time 0
+configure ports 3 debounce time 0
+configure ports 4 debounce time 0
+configure ports 5 debounce time 0
+configure ports 6 debounce time 0
+configure ports 7 debounce time 0
+configure ports 8 debounce time 0
+configure ports 9 debounce time 0
+configure ports 10 debounce time 0
+configure ports 11 debounce time 0
+configure ports 12 debounce time 0
+
+#
+# Module idMgr configuration.
+#
+
+#
+# Module ipSecurity configuration.
+#
+
+#
+# Module iqagent configuration.
+#
+
+#
+# Module isis configuration.
+#
+
+#
+# Module lldp configuration.
+#
+
+#
+# Module mrp configuration.
+#
+
+#
+# Module msdp configuration.
+#
+
+#
+# Module netDb configuration.
+#
+
+#
+# Module netLogin configuration.
+#
+
+#
+# Module netTools configuration.
+#
+enable dhcp vlan Default
+enable dhcp vlan Mgmt
+
+#
+# Module nodealias configuration.
+#
+
+#
+# Module ntp configuration.
+#
+
+#
+# Module ospf configuration.
+#
+
+#
+# Module ospfv3 configuration.
+#
+
+#
+# Module pim configuration.
+#
+
+#
+# Module poe configuration.
+#
+
+#
+# Module rip configuration.
+#
+
+#
+# Module ripng configuration.
+#
+
+#
+# Module snmpMaster configuration.
+#
+configure snmpv3 engine-id 03:0c:bb:a0:b2:00:00
+
+#
+# Module stp configuration.
+#
+disable stpd s0
+configure stpd s0 mode dot1w
+enable stpd s0
+configure stpd s0 add vlan VLAN_0010 ports 2 dot1d
+configure stpd s0 add vlan VLAN_0020 ports 1 dot1d
+configure stpd s0 add vlan VLAN_0030 ports 1 dot1d
+
+#
+# Module techSupport configuration.
+#
+
+#
+# Module telnetd configuration.
+#
+
+#
+# Module tftpd configuration.
+#
+
+#
+# Module thttpd configuration.
+#
+
+#
+# Module twamp configuration.
+#
+
+#
+# Module vmt configuration.
+#
+
+#
+# Module vrrp configuration.
+#
+
+#
+# Module vsm configuration.
+#
+
+
+ROUTER
+
+vyos@vyos:~$ show configuration commands
+set firewall name FROM-ADMIN default-action 'drop'
+set firewall name FROM-ADMIN rule 10 action 'accept'
+set firewall name FROM-ADMIN rule 10 destination address '10.0.0.0/16'
+set firewall name FROM-ADMIN rule 10 source address '10.0.10.0/24'
+set firewall name FROM-ADMIN rule 20 action 'accept'
+set firewall name FROM-ADMIN rule 20 destination port '123,514'
+set firewall name FROM-ADMIN rule 20 protocol 'udp'
+set firewall name FROM-ADMIN rule 20 source address '10.0.10.0/24'
+set firewall name FROM-ADMIN rule 30 action 'accept'
+set firewall name FROM-ADMIN rule 30 protocol 'all'
+set firewall name FROM-GUEST default-action 'drop'
+set firewall name FROM-GUEST rule 10 action 'accept'
+set firewall name FROM-GUEST rule 10 state established 'enable'
+set firewall name FROM-GUEST rule 10 state related 'enable'
+set firewall name FROM-GUEST rule 11 action 'drop'
+set firewall name FROM-GUEST rule 11 destination address '10.0.20.0/24'
+set firewall name FROM-GUEST rule 11 protocol 'all'
+set firewall name FROM-GUEST rule 11 source address '10.0.30.0/24'
+set firewall name FROM-GUEST rule 12 action 'accept'
+set firewall name FROM-GUEST rule 12 destination address '!10.0.0.0/8'
+set firewall name FROM-GUEST rule 12 protocol 'all'
+set firewall name FROM-GUEST rule 12 source address '10.0.30.0/24'
+set interfaces ethernet eth0 address '8.8.8.2/30'
+set interfaces ethernet eth0 description 'WAN to ISP Router'
+set interfaces ethernet eth0 hw-id '0c:e8:15:3d:00:00'
+set interfaces ethernet eth1 firewall
+set interfaces ethernet eth1 hw-id '0c:e8:15:3d:00:01'
+set interfaces ethernet eth1 vif 20 address '10.0.20.254/24'
+set interfaces ethernet eth1 vif 20 address '10.0.20.1/24'
+set interfaces ethernet eth1 vif 20 firewall
+set interfaces ethernet eth1 vif 30 address '10.0.30.254/24'
+set interfaces ethernet eth1 vif 30 address '10.0.30.1/24'
+set interfaces ethernet eth1 vif 30 firewall in name 'FROM-GUEST'
+set interfaces ethernet eth2 firewall
+set interfaces ethernet eth2 hw-id '0c:e8:15:3d:00:02'
+set interfaces ethernet eth2 vif 10 address '10.0.10.254/24'
+set interfaces ethernet eth2 vif 10 firewall in name 'FROM-ADMIN'
+set interfaces ethernet eth3 firewall
+set interfaces ethernet eth3 hw-id '0c:e8:15:3d:00:03'
+set interfaces ethernet eth4 hw-id '0c:e8:15:3d:00:04'
+set interfaces ethernet eth5 hw-id '0c:e8:15:3d:00:05'
+set interfaces ethernet eth6 hw-id '0c:e8:15:3d:00:06'
+set interfaces ethernet eth7 hw-id '0c:e8:15:3d:00:07'
+set interfaces loopback lo
+set nat source rule 10 description 'Masquerade VLANs'
+set nat source rule 10 outbound-interface 'eth0'
+set nat source rule 10 source address '10.0.10.0/24'
+set nat source rule 10 translation address 'masquerade'
+set nat source rule 20 description 'Masquerade VLAN 20'
+set nat source rule 20 outbound-interface 'eth0'
+set nat source rule 20 source address '10.0.20.0/24'
+set nat source rule 20 translation address 'masquerade'
+set nat source rule 30 description 'Masquerade VLAN 30'
+set nat source rule 30 outbound-interface 'eth0'
+set nat source rule 30 source address '10.0.30.0/24'
+set nat source rule 30 translation address 'masquerade'
+set nat source rule 99 outbound-interface 'eth0'
+set nat source rule 99 source address '10.0.10.100'
+set nat source rule 99 translation address 'masquerade'
+set protocols static route 0.0.0.0/0 next-hop 8.8.8.1
+set service dhcp-server shared-network-name VLAN20 authoritative
+outer '10.0.20.254'
+400'
+er '8.8.8.8'
+er '1.1.1.1'
+tart '10.0.20.100'
+top '10.0.20.200'
+set service dhcp-server shared-network-name VLAN30 authoritative
+outer '10.0.30.254'
+400'
+er '8.8.8.8'
+er '1.1.1.1'
+tart '10.0.30.100'
+top '10.0.30.200'
+set service dhcp-server shared-network-name VLAN_0010 authoritative
+t-router '10.0.10.254'
+'86400'
+erver '8.8.8.8'
+erver '1.1.1.1'
+0 start '10.0.10.101'
+0 stop '10.0.10.200'
+set service ssh
+set system config-management commit-revisions '100'
+set system conntrack modules ftp
+set system conntrack modules h323
+set system conntrack modules nfs
+set system conntrack modules pptp
+set system conntrack modules sip
+set system conntrack modules sqlnet
+set system conntrack modules tftp
+set system console device ttyS0 speed '115200'
+set system host-name 'vyos'
+1h/'
+set system login user vyos authentication plaintext-password ''
+set system ntp server 10.0.10.100
+set system ntp server time1.vyos.net
+set system ntp server time2.vyos.net
+set system ntp server time3.vyos.net
+set system syslog global facility all level 'info'
+set system syslog global facility protocols level 'debug'
+set system syslog host 10.0.10.100 facility all level 'info'
+vyos@vyos:~$
+
+
+
+
+
